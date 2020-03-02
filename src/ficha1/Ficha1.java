@@ -58,9 +58,23 @@ public class Ficha1 {
 	  static int diasDoAno(int [] data)
 	   {
 	      int [] dias = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+	      int totalDiasano, totalDiasAno1 = 0;
+	      
+	      
 	      if (eBisexto(data[0]))
-	         dias[2] = 29;     
-	      int totalDias = data[2] + data[0];
+	         dias[2] = 29;
+	      
+	      //int numeroDeDiasAno = eBisexto(data[0]) ? 366:365;
+	      
+	      for (int i = 1; i<data[0]; i++)
+	      {
+	    	  totalDiasano = eBisexto(i) ? 366:365;
+	    	  totalDiasAno1 = totalDiasano + totalDiasAno1;
+	      }
+	      System.out.println(totalDiasAno1);
+	      
+	      int totalDias = data[2] + data[0] * totalDiasAno1;
+	      
 	      for (int i = 1; i<data[1];i++)
 	      {
 	         totalDias = totalDias + dias[i];
@@ -87,7 +101,7 @@ public class Ficha1 {
 	
 	static void imprimirDiferençaDeDidas()
 	{
-	     int diferençaDeDidasDoAno = calcularDataMaior(2010, 12, 6, 2010, 12, 6);
+	     int diferençaDeDidasDoAno = calcularDataMaior(2010, 1, 6, 2019, 12, 6);
 	      	      
 	      System.out.println(diferençaDeDidasDoAno);
 	      
@@ -101,12 +115,33 @@ public class Ficha1 {
 	      }
 	      else if (diferençaDeDidasDoAno > 0)
 	      {
-	         System.out.println("O Ano 2 é maior que o Ano 1");
+	         System.out.println("O Ano 1 é maior que o Ano 2");
 	      }
 	}
 	
+	static String choiceCivilStatus(char estadoCivil)
+	{
+		switch (estadoCivil)
+		{
+		case 's':
+		case 'S':
+			return "Solteiro";
+		case 'c':
+		case 'C':
+			return "Casado";
+		case 'v':
+		case 'V':
+			return "Viuvo";
+		case 'd':
+		case 'D':
+			return "Divorciado";
+		default:
+			return "Estado civil invalido";
+		}		
+	}
 	
-	static void calcularDiferençaEntreAnos()
+ 	static void calcularDiferençaEntreAnos()
+
 	{
 	   Scanner scanner = new Scanner (System.in);
 	   
@@ -134,6 +169,61 @@ public class Ficha1 {
 	}
 	
 	
+	static void printPessoa(String nome, String morada, 
+			String codigoPostal, String Telefone, int dNasc, int mNasc, int aNasc, char estadoCivil)
+	{
+		System.out.println(nome);
+		System.out.println(morada);
+		System.out.println(codigoPostal);
+		System.out.println(Telefone);
+		System.out.println(dNasc + "/" + mNasc + "/" + aNasc);
+		System.out.println("Estado Civil: " + choiceCivilStatus(estadoCivil));
+		System.out.println("-----------------------------------------------------------------------");		
+	}
+	
+	static int getIdade (int anoNasc, int anoReferencia)
+	{		
+		return anoReferencia - anoNasc;
+	}
+	
+	static boolean eMaiorIdade(int anoNasc, int anoReferencia)
+	{
+		return getIdade(anoNasc, anoReferencia) >= 18;
+	}
+	
+	static int getIdade( int d, int m, int a, int dRef, int mRef, int aRef)
+	{
+		if (aRef <= a)
+		{
+			return 0;
+		}
+		
+		if (mRef > m)
+			return getIdade(a, aRef);
+		
+		if (mRef < m)
+			return getIdade(a, aRef) - 1;
+		
+		if (dRef >= d)
+			return getIdade(a, aRef);
+		else
+			return getIdade(a, aRef) - 1;		
+	}
+	
+	static void printPessoas(String []nms, String [] moradas, String []codigosPostais, String [] telefones,
+			int [] dNasc, int []mNasc, int []aNasc, char []estadosCivis)
+	{
+		for (int i = 0; i < nms.length; i++)
+		{
+			printPessoa(nms[i], moradas[i], codigosPostais[i], telefones[i], 
+					dNasc[i], mNasc[i], aNasc[i], estadosCivis[i]);
+		}
+	}
+	
+
+	
+	
+	
 	public static void main(String[] args) 
 	{
 	   
@@ -152,8 +242,89 @@ public class Ficha1 {
 		//System.out.println(diasDoAno(1980, 12, 22));
 	   //imprimirDiferençaDeDidas(); 
 	   
-	   calcularDiferençaEntreAnos(); //exercicio 9
-	   	 
+	   //calcularDiferençaEntreAnos(); //exercicio 8
+	   
+		/*
+		 * String nome = "João Silva"; String morada = "Rua torta, nº15"; String
+		 * codigoPostal = "6000-007 Pedreiras"; String Telefone = "965829320"; int dNasc
+		 * = 2, mNasc = 4, aNasc = 2000; char estadoCivil = 's';
+		 * 
+		 * printPessoa(nome, morada, codigoPostal, Telefone, dNasc, mNasc, aNasc,
+		 * estadoCivil);
+		 */ 
+		
+		
+		//System.out.println(getIdade(02, 12, 1989, 03, 12, 1989));
+		
+		String nomes [] = new String [5];
+		String moradas [] = new String [5];
+		String codigosPostais [] = new String [5];
+		String telefones [] = new String [5];
+		int dsNasc [] = new int [5];
+		int msNasc [] = new int [5];
+		int asNasc [] = new int [5];
+		char estadosCivis[] = new char [5];
+		
+		nomes[0] = "Joel Sousa";
+		moradas[0] = "Rua Torta, Nº 1555";
+		codigosPostais[0] = "6200-867 Teixoso";
+		telefones[0] = "965829320";
+		dsNasc[0] = 02;
+		msNasc[0] = 12;
+		asNasc[0] = 1989;
+		estadosCivis[0] = 's';
+		
+		nomes[1] = "Joel Sousa 1";
+		moradas[1] = "Rua Torta, Nº 1555 1";
+		codigosPostais[1] = "6200-867 Teixoso 1";
+		telefones[1] = "965829320 1";
+		dsNasc[1] = 03;
+		msNasc[1] = 12;
+		asNasc[1] = 1990;
+		estadosCivis[1] = 'c';
+		
+		nomes[2] = "Joel Sousa 2";
+		moradas[2] = "Rua Torta, Nº 1555 2";
+		codigosPostais[2] = "6200-867 Teixoso 2";
+		telefones[2] = "965829320 2";
+		dsNasc[2] = 04;
+		msNasc[2] = 12;
+		asNasc[2] = 1991;
+		estadosCivis[2] = 'c';
+		
+		nomes[2] = "Joel Sousa 2";
+		moradas[2] = "Rua Torta, Nº 1555 2";
+		codigosPostais[2] = "6200-867 Teixoso 2";
+		telefones[2] = "965829320 2";
+		dsNasc[2] = 04;
+		msNasc[2] = 12;
+		asNasc[2] = 1991;
+		estadosCivis[2] = 'c';
+		
+		nomes[3] = "Joel Sousa 3";
+		moradas[3] = "Rua Torta, Nº 1555 3";
+		codigosPostais[3] = "6200-867 Teixoso 3";
+		telefones[3] = "965829320 3";
+		dsNasc[3] = 05;
+		msNasc[3] = 12;
+		asNasc[3] = 1992;
+		estadosCivis[3] = 'c';
+		
+		nomes[4] = "Joel Sousa 4";
+		moradas[4] = "Rua Torta, Nº 1555 4";
+		codigosPostais[4] = "6200-867 Teixoso 4";
+		telefones[4] = "965829320 4";
+		dsNasc[4] = 06;
+		msNasc[4] = 12;
+		asNasc[4] = 1993;
+		estadosCivis[4] = 'c';
+		
+		
+		printPessoas(nomes, moradas, codigosPostais, telefones, dsNasc, msNasc, asNasc, estadosCivis);
+				
 	}
+	
+	
+	
 
 }
