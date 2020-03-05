@@ -15,7 +15,7 @@ public class Pessoa {
 	
 	public Pessoa(String nome, String morada, String codigoPostal, String localidade, String telefone, int dNasc,
 			int mNasc, int aNasc, char estadoCivil, int numeroBI) {
-		super();
+		
 		this.nome = nome;
 		this.morada = morada;
 		this.codigoPostal = codigoPostal;

@@ -12,6 +12,7 @@ public class TestaPessoa {
 		Pessoa pessoas [] = new Pessoa[5];
 		
 		pessoas [0] = new Pessoa("Joel Sousa", "Quinta do Beirão", "6000-098", "Teixoso", "275922909", 2, 12, 1989, 'S', 987123654);
+		pessoas [1] = new Pessoa("Rafael Morais", "Quinta do Santiago", "6000-098", "Teixoso", "275922909", 2, 12, 1989, 'S', 987123654);
 		
 
 		
